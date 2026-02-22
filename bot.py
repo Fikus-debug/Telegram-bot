@@ -27,10 +27,17 @@ def send_random_answer(message):
                 "Возможно частично"
         }
         bot.send_message(message.chat.id, f"вот твой случайный ответ"+{message.chat.id})
+
+@bot.message_handler(commands=['animals'])
+def send_mem(message):
+    image = random.choice(os.listdir('animals'))
+    with open(f'animals/{image}', 'rb') as f:
+        bot.send_photo(message.chat.id, f)
     
     
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
         bot.reply_to(message, message.text)
     
+
 bot.polling()
